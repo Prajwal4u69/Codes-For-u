@@ -1,0 +1,10 @@
+explain plan for
+ select * from pa
+ where department_id =90
+
+select * from table(dbms_xplan.display())
+
+create index ind12 on pa(department_id)
+
+select * from user_indexes
+where table_name='PA'

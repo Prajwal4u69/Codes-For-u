@@ -1,0 +1,94 @@
+1.CREATE OR REPLACE PROCEDURE greetings
+AS
+BEGIN
+   dbms_output.put_line('Hello World!');
+END;
+
+
+BEGIN
+   greetings;
+END;
+
+2.DECLARE
+   a number;
+   b number;
+   c number;
+
+create or replace PROCEDURE findMin(x IN number, y IN number, z OUT number)
+ IS
+BEGIN
+   IF x < y THEN
+      z:= x;
+   ELSE
+      z:= y;
+   END IF;
+END; 
+
+declare
+a number;
+b number;
+c number;
+BEGIN
+  a:= 23;
+   b:= 45;
+   findMin(a, b, c);
+   dbms_output.put_line(' Minimum of (23, 45) : ' || c);
+END;
+
+
+3.create or replace PROCEDURE squareNum(x IN OUT number) 
+IS
+BEGIN
+  x := x * x;
+END; 
+declare 
+a number;
+BEGIN
+   a:= 23;
+   squareNum(a);
+   dbms_output.put_line(' Square of (23): ' || a);
+END;
+
+
+4. create or replace procedure raised_salary(e in employees.employee_id%
+type,amt in number,s out number)
+is
+begin
+  update employees set salary=salary+amt
+  where employee_id=e;
+  commit;
+   select salary into s from employees where employee_id=e;
+end;
+
+
+declare 
+k number;
+E employees.employee_id%type;
+AMT number;
+BEGIN
+raised_salary(&E,&AMT,k);
+   dbms_output.put_line('value of k:'||k);
+END;
+
+
+
+select * from employees
+
+DECLARE 
+   c_id customers.id%type := 6; 
+   c_name customers.Name%type; 
+   c_addr customers.address%type; 
+BEGIN 
+   SELECT  name, address INTO  c_name, c_addr 
+   FROM customers 
+   WHERE id = c_id;  
+   DBMS_OUTPUT.PUT_LINE ('Name: '||  c_name); 
+   DBMS_OUTPUT.PUT_LINE ('Address: ' || c_addr); 
+
+EXCEPTION 
+   WHEN no_data_found THEN 
+      dbms_output.put_line('No such customer!'); 
+   WHEN others THEN 
+      dbms_output.put_line('Error!'); 
+END; 
+              

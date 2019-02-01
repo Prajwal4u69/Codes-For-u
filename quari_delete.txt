@@ -1,0 +1,47 @@
+CREATE TABLE orders( order_id number(5),quantity number(4),cost_per_item number(6,2),total_cost number(8,2)
+)
+CREATE TABLE orders_audit
+   ( order_id number(5),
+     quantity number(4),
+     cost_per_item number(6,2),
+     total_cost number(8,2),
+     delete_date DATE,
+     deleted_by varchar2(20))
+
+CREATE OR REPLACE TRIGGER orders_after_delete
+AFTER DELETE
+   ON orders
+   FOR EACH ROW
+
+DECLARE
+   v_username varchar2(10);
+
+BEGIN
+
+   -- Find username of person performing the DELETE on the table
+   SELECT user INTO v_username
+   FROM dual;
+
+   -- Insert record into audit table
+   INSERT INTO orders_audit
+   ( order_id,
+     quantity,
+     cost_per_item,
+     total_cost,
+     delete_date,
+     deleted_by)
+   VALUES
+   ( :old.order_id,
+     :old.quantity,
+     :old.cost_per_item,
+     :old.total_cost,
+     sysdate,
+     v_username );
+
+END;
+
+
+insert into orders values(2,5,600,6000)
+select * from orders
+delete from orders where order_id=1
+select * from orders_audit

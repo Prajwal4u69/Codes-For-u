@@ -1,0 +1,82 @@
+create table customers(ID varchar2(10)  ,NAME varchar2(10) , AGE integer , ADDRESS varchar2(20) ,SALARY integer )
+insert into customers values( '6' ,'komal', 22,' MP', 4500.00)
+select * from customers
+
+for update:
+
+CREATE OR REPLACE TRIGGER display_salary_changes
+BEFORE  UPDATE ON customers
+FOR EACH ROW
+WHEN (NEW.ID > 0)
+DECLARE
+   sal_diff number;
+BEGIN
+   sal_diff := :NEW.salary  - :OLD.salary;
+   dbms_output.put_line('Old salary: ' || :OLD.salary);
+   dbms_output.put_line('New salary: ' || :NEW.salary);
+   dbms_output.put_line('Salary difference: ' || sal_diff);
+END;
+
+UPDATE customers
+SET salary = salary + 500
+WHERE id = 2;
+
+for delete:
+
+CREATE OR REPLACE TRIGGER display_salary_changes
+after delete ON customers
+FOR EACH ROW
+WHEN (old.ID > 0)
+
+BEGIN
+   
+   dbms_output.put_line('rows deleted' );
+END;
+
+for insert:
+
+CREATE OR REPLACE TRIGGER display_salary_changes
+after insert ON customers
+FOR EACH ROW
+WHEN (new.ID > 0)
+
+BEGIN
+   
+   dbms_output.put_line(' one row inserted' );
+END;
+
+insert into custmers values(9,'shreya',33,'UP',9000)
+
+ you cant insert between 9:0 to 6:0
+create or replace trigger restricted_trigger
+before insert on customers
+begin 
+  if(to_char(sysdate,'HH24:MI')  between '9:00' and '18:00')then
+
+     raise_application_error(-20123,'you can add employees between 9:00am to 6:00pm')
+  end if;
+end;
+
+for salary updation should be positive:
+
+create or replace trigger restricted_trigger_2
+before  update of salary on employees
+for each row
+begin 
+  if :new.salary < :old.salary
+    then
+
+     raise_application_error(-20123,'updated salary can not be less then current salary');
+  end if;
+end;
+
+for view:
+DECLARE
+ v_id number;
+begin
+  select department_id into v_id from dep5 where lower(departmrent_name)=lower(:new.department_name);
+  if inserting then
+     insert into emp4 values(:new.FIRST_NAME,:new.LAST_NAME,:new.employee_id,:new.v_id);
+   end if;
+end;
+ 09971188362
