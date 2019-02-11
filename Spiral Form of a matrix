@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+  int i,j;
+  int m,n;
+
+  cout<<"\nEnter Row And Column\n";
+  cin>>m>>n;
+
+  int  a[m][n];
+
+  cout<<"\nEnter the elements in the matrix\n";
+  for(i=0;i<m;i++)
+  {
+    for(j=0;j<n;j++)
+    {
+      cin>>a[i][j];
+    }
+  }
+
+  int l=0,k=0,last_row=m-1,last_col=n-1;
+
+  while(k<=last_row && l<=last_col)
+  {
+    for(i=l;i<=last_col;i++)
+    {
+      cout<<a[k][i]<<" ";
+    }
+
+    k++;
+
+    for(i=k;i<=last_row;i++)
+    {
+      cout<<a[i][last_col]<<" ";
+    }
+
+    last_col--;
+
+    if(k<=last_row)
+    {
+      for(i=last_col;i>=l;i--)
+      {
+        cout<<a[last_row][i]<<" ";
+      }
+      last_row--;
+    }
+
+    if(l<=last_col)
+    {
+      for(i=last_row;i>=k;i--)
+      {
+        cout<<a[i][l]<<" ";
+      }
+      l++;
+    }
+
+  }
+  return 0;
+}
