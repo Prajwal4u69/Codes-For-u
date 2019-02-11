@@ -1,0 +1,31 @@
+import numpy as np
+import matplotlib.pyplot as plt
+import os
+import cv2
+import random
+FILE_DIR="C:/MyData"
+CAT=['parth','tejas']
+IMAGE_SIZE=50
+my_training_data=[]
+def generate_training_data():
+    for cat in CAT:
+        path=os.path.join(FILE_DIR,cat)
+        class_nu=CAT.index(cat)
+        for img in os.listdir(path):
+            try:
+                img_array=cv2.imread(os.path.join(path,img),cv2.IMREAD_GRAYSCALE)
+                new_array=cv2.resize(img_array,(IMAGE_SIZE,IMAGE_SIZE))
+             #  plt.imshow(new_array,cmap='gray')
+             #  plt.show()
+                my_training_data.append([new_array,class_nu])
+            except Exception as e:
+                pass
+generate_training_data()
+random.shuffle(my_training_data)
+X=[]
+Y=[]
+for f,l in my_training_data:
+    X.append(f)
+    Y.append(l)
+X=np.array(X).reshape(-1,IMAGE_SIZE,IMAGE_SIZE,1)
+print(X,Y)
