@@ -1,0 +1,15 @@
+%{
+  int a = 0, b = 0, c = 0, d = 0;	//declaration
+%}
+
+%%
+\n a++;		//no. of lines
+\t b++;		//no. of tabs
+[ ] c++;		//no. of spaces
+. d++;		//no. of characters
+%%
+main()
+{
+  yylex();	//routine
+  printf("\nLines=%d\nTab=%d\nSpace=%d\nCharacter=%d\n", a, b, c, d);
+}
