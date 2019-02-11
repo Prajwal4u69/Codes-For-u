@@ -1,0 +1,49 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+  int v,u,e,edges;
+  cout<<"\nEnter the number of vertices and edges\n";
+  cin>>v>>edges;
+
+std ::  vector<int> adj[v];
+
+  int i;
+
+  cout<<"\nEnter the starting Edge of Ending Edge\n";
+  for(i=0;i<edges;i++)
+  {
+    cin>>u>>e;
+    adj[u].push_back(e);
+  }
+
+stack<int>s;
+bool visited[v]={false};
+int source;
+vector<int> :: iterator it;
+
+cout<<"\nUser please enter the source vertex\n";
+cin>>source;
+
+visited[source] = true;
+s.push(source);
+
+while(!s.empty())
+   {
+
+       source = s.top();
+       cout <<source<<" ";
+       s.pop();
+
+       for (it = adj[source].begin(); it != adj[source].end(); ++it)
+       {
+           if (!visited[*it])
+           {
+               visited[*it] = true;
+               s.push(*it);
+           }
+       }
+    }
+  return 0;
+}
