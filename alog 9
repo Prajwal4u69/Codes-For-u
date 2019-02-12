@@ -1,0 +1,76 @@
+ Given an unsorted array of integers, design an algorithm and implement it using a program to 
+ sort an array of elements by dividing the array into two subarrays and
+ combining these subarrays after sorting each one of them. Your program should also find number of
+ comparisons and inversions during sorting the array.
+
+
+#include<bits/stdc++.h>
+using namespace std;
+int merge(int *array,int l,int mid,int r,int *compare)
+{
+	int c[r-l+1],i=l,j=mid+1,k=0;
+	
+	while(i<=mid&&j<=r)
+	{
+		if(array[i]<array[j])
+		{
+			c[k++]=array[i];
+			i++;
+			++(*compare);
+		}
+		else 
+		{	++(*compare);
+			c[k++]=array[j];
+			j++;
+		}
+	}
+	
+	while(i<=mid)
+	{
+		c[k++]=array[i++];
+	}
+	
+	while(j<=r)
+	{
+		c[k++]=array[j++];
+	}
+	k=0;
+	for(i=l;i<=r;i++)
+		array[i]=c[k++];
+		
+}
+
+int merge_sort(int *array,int l,int r,int *compare)
+{	int mid;
+	mid=(l+r)/2;
+
+	if(l<r)
+	{	
+		merge_sort(array,l,mid,compare);
+		merge_sort(array,mid+1,r,compare);
+		merge(array,l,mid,r,compare);	
+	}
+}
+int main()
+{
+	int n,t,*array,compare;
+	cin>>t;
+	while(t--)
+	{	compare=0;
+		cin>>n;
+		array=(int *)malloc(sizeof(int)*n);
+		for(int i=0;i<n;i++)
+		{
+			cin>>array[i];
+		}
+		merge_sort(array,0,n-1,&compare);
+		
+		for(int i=0;i<n;i++)
+		{
+			cout<<array[i]<<" ";
+		}
+		cout<<"Number of comparision are "<<compare<<endl;
+		
+	}
+}
+
