@@ -1,0 +1,68 @@
+Given an unsorted array of integers, design an algorithm and implement it using a program to sort an array of elements by 
+partitioning the array into two subarrays based on a pivot element such that one of the sub array holds values smaller than
+the pivot element while another sub array holds values greater than the pivot element. Pivot element should be selected randomly
+from the array. Your program should also find number of comparisons and swaps required for sorting the array.
+
+#include<bits/stdc++.h>
+using namespace std;
+static int c=0;	
+int partition(int *array,int l, int r)
+{
+	int pivot=array[r],i=l-1,j=l,temp;
+	
+	while(j<r)
+	{
+		if(array[j]<=pivot)
+		{
+			i++; 
+			temp=array[i];
+			array[i]=array[j];
+			array[j]=temp;
+			
+		}
+		j++;
+	}
+	i=i+1; 
+	temp=array[i];
+	array[i]=pivot;
+	array[r]=temp;
+	return i;
+	
+}
+
+int quick_sort(int *array,int l,int r)
+{	int p;
+
+	if(l<r)
+	
+	
+{	c++;
+p=partition(array,l,r);
+		quick_sort(array,l,p-1);
+		c++;
+		quick_sort(array,p+1,r);
+			
+	}
+}
+int main()
+{
+	int n,t,*array;
+	cin>>t;
+	while(t--)
+	{
+		cin>>n;
+		array=(int *)malloc(sizeof(int)*n);
+		for(int i=0;i<n;i++)
+		{
+			cin>>array[i];
+		}
+		quick_sort(array,0,n-1);
+		
+		for(int i=0;i<n;i++)
+		{
+			cout<<array[i]<<endl;
+		}
+		cout<<c<<" ";
+	}
+}
+
