@@ -1,0 +1,83 @@
+/*
+Given an unsorted array of positive integers, design an algorithm and implement it using a
+program to find whether there are any duplicate elements in the array or not. (use sorting) (Time
+Complexity = O(n log n))
+*/
+#include<bits/stdc++.h>
+using namespace std;
+int find(int *,int ,int);
+int partition(int *,int ,int);
+int main()
+{
+	int n,*a,i,j,val,t;
+	cin>>t;
+	while(t--)
+	{
+		cout<<"enter the size of array"<<endl;
+		cin>>n;
+		
+		a=(int *)malloc(sizeof(int)*n);
+		for(i=0;i<n;i++)
+		{
+			cin>>a[i];
+		}
+		
+		val=find(a,0,n-1);
+		if(val==-1)
+		{	
+			cout<<"YES\n";
+			continue;
+		}
+		cout<<"NO\n";	
+		
+			for(i=0;i<n;i++)
+		{
+			cout<<a[i]<<" ";
+		}
+	
+	}
+	
+}
+
+int find(int *a,int l,int r)
+{	
+	int p;
+	if(l<r)
+	{
+		p=partition(a,l,r);
+	if(p==-1)
+			return -1;
+		return find(a,l,p-1);
+		return find(a,p+1,r);	
+	}
+}
+int partition(int *a,int l,int r)
+{
+	int pivot,i=l-1,j=l,temp;
+	
+	pivot=a[r];
+	
+	for(;j<r;j++)
+	{
+		if(a[j]<pivot)
+		{
+			i++;
+			temp=a[i];
+			a[i]=a[j];
+			a[j]=temp;
+		}
+	else if(a[j]==pivot)
+			return -1;
+	}
+	i=i+1;
+	temp=a[i];
+	a[i]=pivot;
+	a[r]=temp;
+	return i;
+}
+
+
+
+
+
+
