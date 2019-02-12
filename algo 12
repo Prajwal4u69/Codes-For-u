@@ -1,0 +1,44 @@
+ Given an unsorted array of alphabets containing duplicate elements. Design an algorithm and implement it using a program to find
+ which alphabet has maximum number of occurrences and print it. (Time Complexity = O(n)) (Hint: Use counting sort)
+
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+	int array[26]={0};
+	int t,i,n;
+	char ch;
+	cin>>t;
+
+	while(t--)
+	{
+		cin>>n;
+		cin.ignore();
+		for(i=0;i<n;i++)
+		{
+			cin>>ch;
+			//cin.ignore();
+			array[ch-97]++;
+		}
+
+	int max=0,pos; 
+	for(i=0;i<26;i++)
+	{
+		if(max<array[i])
+		{
+			max=array[i];
+			pos=i;	
+		}
+	}
+	if(max==1)
+	{
+		cout<<"NO DUPLICATE ELEMENt\n";
+		fill(array,array+26,0);
+		continue;
+	}
+	cout<<(char)(pos+97)<<" - "<<max<<endl;
+	fill(array,array+26,0);
+	
+	}
+
+}
