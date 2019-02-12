@@ -3,6 +3,8 @@ import sys
 cascadepath="haarcascade_frontalface_default.xml"
 facedetector=cv2.CascadeClassifier(cascadepath)
 cam=cv2.VideoCapture(0) // here we can also give path of vedio for face recognition
+sNo=0
+id=input("Enter id")
 while(True):
   rect,img=cam.read()
   gray=cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
