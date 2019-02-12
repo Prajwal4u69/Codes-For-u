@@ -1,0 +1,57 @@
+/*
+Given an already sorted array of positive integers, design an algorithm and implement it using a
+program to find whether a given key element is present in the sorted array or not. For an array
+arr[n], search at the indexes arr[0], arr[2], arr[4],.....,arr[2 k ] and so on. Once the interval (arr[2 k ] <
+key < arr[ 2 k+1 ] ) is found, perform a linear search operation from the index 2 k to find the element
+key. (Complexity < O(n), where n is the number of elements need to be scanned for searching):
+Jump Search
+*/
+
+#include<stdio.h>
+#include<stdlib.h>
+int jump_search(int *a,int n,int key)
+{
+	int i=0,k;
+	if(a[i]==key)
+	return i+1;
+	
+	for(i=1;i<n;i*=2)
+	{
+		if(a[i]==key)
+			return i+1;
+		
+		if(a[i]>key)
+			break;
+		
+	}
+	
+	k=i/2;
+	
+	for(;k<i;k++)
+	{
+		if(a[k]==key)
+			return k+1;
+	}
+	return -1;
+}
+int main()
+{
+	int t,n,*array,val,i=0,key;
+	scanf("%d",&t);
+	while(t--)
+	{	
+		scanf("%d",&n);
+		array=(int *)malloc(sizeof(int)*n);
+	
+		for(i=0;i<n;i++)
+		scanf("%d",array+i);
+		
+		scanf("%d",&key);
+		
+		val=jump_search(array,n,key);
+		if(val!=-1)
+			printf("present at %d\n",val);
+		else
+			printf("Not present\n");
+	}	
+}
