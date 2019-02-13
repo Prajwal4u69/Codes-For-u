@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+struct node{
+int data;
+
+};
+
+int main()
+{
+ vector<node> v;
+  node n;
+
+for(int i=0;i<6;i++)
+{
+
+
+    n.data=i;
+    v.push_back(n);
+}
+for(int i=0;i<6;i++)
+{
+  cout<<v[i].data<<" ";
+}
+
+
+  return 0;
+}
