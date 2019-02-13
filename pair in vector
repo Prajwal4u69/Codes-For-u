@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+
+int main()
+{
+vector<pair<int,int> >ksin;
+
+int p,w;
+
+for(int i=0;i<7;i++)
+{
+  cin>>p>>w;
+  ksin.push_back(make_pair(p,w));
+}
+
+for(int i=0;i<7;i++)
+{
+cout<<ksin[i].first<<" "<<ksin[i].second<<" ";
+}
+
+// Or we can write it as
+for(auto it: ksin)
+{
+  cout<<it.first<<" "<<it.second<<" ";
+}
+
+  return 0;
+}
